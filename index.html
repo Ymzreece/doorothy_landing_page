@@ -966,7 +966,14 @@
     </footer>
 
     <script>
-        // Email Popup Logic
+        // ============================================
+        // EMAIL COLLECTION SYSTEM
+        // ============================================
+
+        // CONFIGURATION: Add your Google Apps Script Web App URL here
+        // Instructions: See comments at bottom of this script
+        const GOOGLE_SCRIPT_URL = ''; // Leave empty to use localStorage only
+
         let scrollCount = 0;
         let lastScrollTop = 0;
         let popupShown = false;
@@ -975,18 +982,17 @@
         const overlay = document.getElementById('popupOverlay');
         const closeBtn = document.getElementById('popupClose');
         const popupForm = document.getElementById('popupForm');
+        const footerForm = document.querySelector('footer .footer-cta');
 
-        // Track scroll events
+        // Track scroll events for popup
         window.addEventListener('scroll', function () {
             if (popupShown) return;
 
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-            // Check if user scrolled down (not up)
             if (scrollTop > lastScrollTop && scrollTop > 100) {
                 scrollCount++;
 
-                // Show popup after 2 scroll downs
                 if (scrollCount >= 2) {
                     showPopup();
                 }
@@ -999,30 +1005,167 @@
             popup.classList.add('show');
             overlay.classList.add('show');
             popupShown = true;
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function hidePopup() {
             popup.classList.remove('show');
             overlay.classList.remove('show');
-            document.body.style.overflow = ''; // Restore scrolling
+            document.body.style.overflow = '';
         }
 
-        // Close popup on X button click
+        // Close popup handlers
         closeBtn.addEventListener('click', hidePopup);
-
-        // Close popup on overlay click
         overlay.addEventListener('click', hidePopup);
 
-        // Handle form submission
-        popupForm.addEventListener('submit', function (e) {
+        // Email submission function
+        async function submitEmail(email, source) {
+            const timestamp = new Date().toISOString();
+            const emailData = {
+                email: email,
+                source: source, // 'popup' or 'footer'
+                timestamp: timestamp,
+                page: window.location.href
+            };
+
+            // Store in localStorage as backup
+            storeEmailLocally(emailData);
+
+            // Send to Google Sheets if configured
+            if (GOOGLE_SCRIPT_URL) {
+                try {
+                    const response = await fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(emailData)
+                    });
+                    console.log('Email sent to Google Sheets');
+                } catch (error) {
+                    console.error('Error sending to Google Sheets:', error);
+                }
+            }
+
+            return true;
+        }
+
+        // Store email in localStorage
+        function storeEmailLocally(emailData) {
+            let emails = JSON.parse(localStorage.getItem('doorothy_emails') || '[]');
+            emails.push(emailData);
+            localStorage.setItem('doorothy_emails', JSON.stringify(emails));
+            console.log('Email stored locally. Total emails:', emails.length);
+        }
+
+        // Popup form submission
+        popupForm.addEventListener('submit', async function (e) {
             e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            console.log('Email submitted:', email);
-            // Here you would typically send the email to your backend
-            alert('Thank you! Your exclusive discount is reserved.');
-            hidePopup();
+            const emailInput = this.querySelector('input[type="email"]');
+            const email = emailInput.value;
+            const submitBtn = this.querySelector('button[type="submit"]');
+
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            await submitEmail(email, 'popup');
+
+            // Show success message
+            submitBtn.textContent = '✓ Reserved!';
+            submitBtn.style.background = '#4CAF50';
+
+            setTimeout(() => {
+                hidePopup();
+                emailInput.value = '';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Reserve My Discount';
+                submitBtn.style.background = '';
+            }, 2000);
         });
+
+        // Footer form submission
+        if (footerForm) {
+            const footerButton = footerForm.querySelector('button');
+            const footerInput = footerForm.querySelector('input[type="email"]');
+
+            footerButton.addEventListener('click', async function (e) {
+                e.preventDefault();
+
+                if (!footerInput.value || !footerInput.validity.valid) {
+                    footerInput.focus();
+                    return;
+                }
+
+                const email = footerInput.value;
+
+                // Disable button and show loading state
+                footerButton.disabled = true;
+                const originalText = footerButton.textContent;
+                footerButton.textContent = 'Submitting...';
+
+                await submitEmail(email, 'footer');
+
+                // Show success message
+                footerButton.textContent = '✓ Reserved!';
+                footerButton.style.background = '#4CAF50';
+                footerButton.style.borderColor = '#4CAF50';
+
+                setTimeout(() => {
+                    footerInput.value = '';
+                    footerButton.disabled = false;
+                    footerButton.textContent = originalText;
+                    footerButton.style.background = '';
+                    footerButton.style.borderColor = '';
+                }, 3000);
+            });
+        }
+
+        // Console helper to view collected emails
+        window.getCollectedEmails = function () {
+            const emails = JSON.parse(localStorage.getItem('doorothy_emails') || '[]');
+            console.table(emails);
+            return emails;
+        };
+
+        console.log('📧 Email collection system active!');
+        console.log('💡 To view collected emails, type: getCollectedEmails()');
+
+        /*
+        ============================================
+        GOOGLE SHEETS INTEGRATION SETUP (OPTIONAL)
+        ============================================
+        
+        To automatically save emails to Google Sheets:
+        
+        1. Go to https://script.google.com
+        2. Create a new project
+        3. Paste this code:
+        
+        function doPost(e) {
+          var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+          var data = JSON.parse(e.postData.contents);
+          
+          sheet.appendRow([
+            new Date(data.timestamp),
+            data.email,
+            data.source,
+            data.page
+          ]);
+          
+          return ContentService.createTextOutput(JSON.stringify({status: 'success'}));
+        }
+        
+        4. Click "Deploy" > "New deployment"
+        5. Type: "Web app"
+        6. Execute as: "Me"
+        7. Who has access: "Anyone"
+        8. Copy the Web App URL
+        9. Paste it in GOOGLE_SCRIPT_URL at the top of this script
+        
+        ============================================
+        */
     </script>
 
 </body>
