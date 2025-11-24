@@ -326,8 +326,12 @@
             min-height: 300px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
             transition: background 0.3s;
+        }
+
+        .step-item h3 {
+            margin-bottom: 10px;
         }
 
         .step-item:hover {
@@ -343,7 +347,8 @@
 
         .step-visual {
             width: 100%;
-            height: 100px;
+            height: auto;
+            min-height: 100px;
             background: #E0E0E0;
             margin-bottom: 20px;
             display: flex;
@@ -352,6 +357,15 @@
             font-size: 0.8rem;
             color: #888;
             border: 1px dashed #aaa;
+            overflow: hidden;
+        }
+
+        .step-visual video {
+            transition: transform 0.5s ease;
+        }
+
+        .step-visual:hover video {
+            transform: scale(1.1);
         }
 
         /* Section 2: Moments (Editorial) */
@@ -806,25 +820,45 @@
         <div class="steps-container">
             <div class="step-item">
                 <div class="step-number">01</div>
-                <div class="step-visual">DIAGRAM: ADHESIVE</div>
+                <div class="step-visual" style="border: none; background: transparent;">
+                    <video autoplay loop muted playsinline style="width: 100%; height: auto; display: block;">
+                        <source src="videos/video1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
                 <h3 class="uppercase" style="font-size: 0.9rem;">Installation</h3>
                 <p style="font-size: 0.9rem; color: #666;">Peel and stick application. No drilling required.</p>
             </div>
             <div class="step-item">
                 <div class="step-number">02</div>
-                <div class="step-visual">DIAGRAM: TORQUE</div>
+                <div class="step-visual" style="border: none; background: transparent;">
+                    <video autoplay loop muted playsinline style="width: 100%; height: auto; display: block;">
+                        <source src="videos/video1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
                 <h3 class="uppercase" style="font-size: 0.9rem;">Touch</h3>
                 <p style="font-size: 0.9rem; color: #666;">A light push is all it takes to open and close your door.</p>
             </div>
             <div class="step-item">
                 <div class="step-number">03</div>
-                <div class="step-visual">DIAGRAM: BUTTON</div>
+                <div class="step-visual" style="border: none; background: transparent;">
+                    <video autoplay loop muted playsinline style="width: 100%; height: auto; display: block;">
+                        <source src="videos/video1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
                 <h3 class="uppercase" style="font-size: 0.9rem;">Control</h3>
                 <p style="font-size: 0.9rem; color: #666;">Wireless button for remote closure.</p>
             </div>
             <div class="step-item">
                 <div class="step-number">04</div>
-                <div class="step-visual">DIAGRAM: SENSOR</div>
+                <div class="step-visual" style="border: none; background: transparent;">
+                    <video autoplay loop muted playsinline style="width: 100%; height: auto; display: block;">
+                        <source src="videos/video1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
                 <h3 class="uppercase" style="font-size: 0.9rem;">Safety</h3>
                 <p style="font-size: 0.9rem; color: #666;">Built to stop safely when it meets resistance.</p>
             </div>
