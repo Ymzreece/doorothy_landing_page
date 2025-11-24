@@ -1168,10 +1168,14 @@
 
         // Parallax Effect
         const heroText = document.querySelector('.hero-text');
+        const heroVisual = document.querySelector('.hero-visual img');
         window.addEventListener('scroll', () => {
             const scrolled = window.scrollY;
             if (heroText) {
                 heroText.style.backgroundPositionY = `calc(100% + ${scrolled * 0.5}px)`;
+            }
+            if (heroVisual) {
+                heroVisual.style.transform = `translateY(${scrolled * 0.3}px)`;
             }
         });
 
@@ -1199,8 +1203,6 @@
         // Instructions: See comments at bottom of this script
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyKoPKo8YfQM3vsL4j5oEvgEYY6lqwBDCuKn4mMj6Qt5ksJzs8DqhIzboO41ohzlro1/exec'; // Leave empty to use localStorage only
 
-        let scrollCount = 0;
-        let lastScrollTop = 0;
         let popupShown = false;
 
         const popup = document.getElementById('emailPopup');
@@ -1209,22 +1211,22 @@
         const popupForm = document.getElementById('popupForm');
         const footerForm = document.querySelector('footer .footer-cta');
 
-        // Track scroll events for popup
-        window.addEventListener('scroll', function () {
-            if (popupShown) return;
-
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                scrollCount++;
-
-                if (scrollCount >= 2) {
+        // Show popup when hero section is completely out of view
+        const heroSection = document.querySelector('.hero');
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // When hero is NOT intersecting (completely out of view) and popup hasn't been shown
+                if (!entry.isIntersecting && !popupShown && !localStorage.getItem('popupSeen')) {
                     showPopup();
                 }
-            }
-
-            lastScrollTop = scrollTop;
+            });
+        }, {
+            threshold: 0 // Trigger when hero is completely out of view
         });
+
+        if (heroSection) {
+            heroObserver.observe(heroSection);
+        }
 
         function showPopup() {
             popup.classList.add('show');
