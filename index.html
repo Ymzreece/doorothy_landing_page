@@ -221,56 +221,7 @@
             justify-content: center;
         }
 
-        .moments-visual {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #e0e0e0;
-            /* Placeholder background */
-            position: relative;
-        }
 
-        .video-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: #dcdcdc;
-            color: #666;
-            font-family: var(--font-sans);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-        }
-
-        .play-button {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: transform 0.3s ease, background 0.3s ease;
-        }
-
-        .play-button:hover {
-            transform: scale(1.1);
-            background: #fff;
-        }
-
-        .play-icon {
-            width: 0;
-            height: 0;
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            border-left: 25px solid var(--accent-color);
-            margin-left: 5px;
-        }
 
         .hero-visual img {
             width: 80%;
@@ -368,61 +319,7 @@
             transform: scale(1.1);
         }
 
-        /* Section 2: Moments (Editorial) */
-        .moments-section {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            min-height: 80vh;
-            border-bottom: 1px solid var(--line-color);
-        }
 
-        .moments-visual {
-            position: relative;
-            border-right: 1px solid var(--line-color);
-            overflow: hidden;
-        }
-
-        .moments-visual img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* Make image smaller as requested */
-            max-height: 80vh;
-            width: auto;
-            max-width: 100%;
-            filter: grayscale(20%);
-        }
-
-        .moments-content {
-            padding: 80px 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .moment-item {
-            margin-bottom: 40px;
-            padding-left: 20px;
-            border-left: 2px solid transparent;
-            transition: all 0.3s;
-            cursor: default;
-        }
-
-        .moment-item:hover {
-            border-left-color: var(--accent-color);
-            padding-left: 30px;
-        }
-
-        .moment-item h3 {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            margin-bottom: 10px;
-            font-weight: 400;
-        }
-
-        .moment-item p {
-            color: var(--text-light);
-        }
 
         /* Section 3: Aesthetic (Gallery) */
         .aesthetic-grid {
@@ -726,15 +623,7 @@
                 grid-template-columns: 1fr 1fr;
             }
 
-            .moments-section {
-                grid-template-columns: 1fr;
-            }
 
-            .moments-visual {
-                border-right: none;
-                border-bottom: 1px solid var(--line-color);
-                height: 400px;
-            }
 
             .aesthetic-grid {
                 grid-template-columns: 1fr;
@@ -764,7 +653,7 @@
 
             .hero-text,
             .section,
-            .moments-content,
+
             .specs-section,
             footer {
                 padding: 60px 20px;
@@ -865,35 +754,7 @@
         </div>
     </section>
 
-    <!-- Section 2: Moments -->
-    <section class="moments-section">
-        <div class="moments-visual">
-            <div class="video-placeholder">
-                <div class="play-button">
-                    <div class="play-icon"></div>
-                </div>
-                <span>Watch Moments</span>
-            </div>
-        </div>
-        <div class="moments-content">
-            <h2 class="section-title" style="margin-bottom: 40px;">Made for the<br>moments that<br>matter.</h2>
 
-            <div class="moment-item">
-                <h3>Universal Design</h3>
-                <p>Empowering independence for wheelchair users and those with limited mobility.</p>
-            </div>
-
-            <div class="moment-item">
-                <h3>Remote Management</h3>
-                <p>Control your environment from the comfort of your bed or desk.</p>
-            </div>
-
-            <div class="moment-item">
-                <h3>Privacy on Demand</h3>
-                <p>Instant seclusion for meetings or quiet moments.</p>
-            </div>
-        </div>
-    </section>
 
     <!-- Section 3: Aesthetic -->
     <!-- Section 3: Aesthetic -->
