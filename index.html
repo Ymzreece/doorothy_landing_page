@@ -172,11 +172,24 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            justify-content: center;
             border-right: 1px solid transparent;
-            /* Removed visible border to use grid gap logic if needed, or keep it but ensure alignment */
             position: relative;
+            background-image: url('images/finger.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
+
+        /* Ensure text is readable on top of the image */
+        .hero-text>* {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Optional: Add a subtle overlay if needed for contrast, but user didn't ask. 
+           I'll add a pseudo-element overlay just in case the image is too busy, 
+           but make it very subtle or transparent for now. 
+           Actually, let's stick to just the image as requested first. */
 
         /* Add a pseudo-element for the border to ensure it aligns perfectly with the grid line */
         .hero-text::after {
