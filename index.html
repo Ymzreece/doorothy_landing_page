@@ -276,30 +276,99 @@
         }
 
         .steps-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            /* 2x2 Grid */
-            gap: 1px;
-            background: var(--line-color);
-            border: none;
+            position: relative;
+            height: 750px;
+            /* Increased height for more vertical spacing */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-color);
+            border-left: 1px solid var(--line-color);
+            overflow: hidden;
+            cursor: pointer;
         }
 
         .step-item {
-            background: var(--bg-color);
-            padding: 40px 20px;
-            min-height: 300px;
+            position: absolute;
+            width: 80%;
+            height: fit-content;
+            inset: 0;
+            margin: auto;
+            background: #1A1A1A;
+            padding: 40px 40px 80px;
+            /* Increased bottom padding for Next indicator */
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            transition: background 0.3s;
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform-origin: center center;
+            /* Changed to center for better stacking with margin: auto */
         }
 
-        .step-item h3 {
-            margin-bottom: 10px;
+        /* Stack effect for non-active cards */
+        .step-item:not(.active) {
+            transform: scale(0.95) translateY(20px);
+            opacity: 0.5;
+            filter: blur(2px);
+            pointer-events: none;
         }
 
-        .step-item:hover {
-            background: #1A1A1A;
+        /* Even further back cards */
+        .step-item:not(.active)+.step-item:not(.active) {
+            transform: scale(0.9) translateY(40px);
+            opacity: 0.3;
+            filter: blur(4px);
+        }
+
+        .step-item.active {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            filter: blur(0);
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        .step-item.active:hover {
+            transform: scale(1.02) translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border-color: var(--accent-color);
+        }
+
+        .step-item.slide-out {
+            transform: translateX(120%) rotate(5deg);
+            opacity: 0;
+        }
+
+        .next-indicator {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 1;
+            transform: translateX(0);
+            transition: all 0.3s ease;
+            animation: pulse-arrow 2s infinite;
+        }
+
+        @keyframes pulse-arrow {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(5px);
+            }
         }
 
         .step-number {
@@ -312,24 +381,29 @@
         .step-visual {
             width: 100%;
             height: auto;
-            min-height: 100px;
-            background: #222222;
+            background: transparent;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
-            color: #888;
-            border: 1px dashed #444;
             overflow: hidden;
         }
 
         .step-visual video {
-            transition: transform 0.5s ease;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
         }
 
-        .step-visual:hover video {
-            transform: scale(1.1);
+        .step-item h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .step-item p {
+            font-size: 1rem;
+            color: #888;
         }
 
 
@@ -712,60 +786,122 @@
         </div>
     </section>
 
-    <!-- Section 1: Workflow -->
     <section class="section">
         <div class="section-header">
             <h2 class="section-title">Seamless<br>Integration</h2>
             <p class="section-desc">Designed to fit your life without disrupting your space. Installation is intuitive
                 and tool-free.</p>
         </div>
-        <div class="steps-container">
-            <div class="step-item">
+        <div class="steps-container" id="stepsContainer">
+            <!-- Cards will be stacked here -->
+            <div class="step-item active">
                 <div class="step-number">01</div>
-                <div class="step-visual" style="border: none; background: transparent;">
-                    <video autoplay loop muted playsinline style="width: 100%; height: auto; display: block;">
+                <div class="step-visual">
+                    <video autoplay loop muted playsinline>
                         <source src="videos/video1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
                     </video>
                 </div>
-                <h3 class="uppercase" style="font-size: 0.9rem;">Installation</h3>
-                <p style="font-size: 0.9rem; color: #666;">Peel and stick application. No drilling required.</p>
+                <h3 class="uppercase">Installation</h3>
+                <p>Peel and stick application. No drilling required.</p>
+                <div class="next-indicator">Next <span class="arrow">→</span></div>
             </div>
             <div class="step-item">
                 <div class="step-number">02</div>
-                <div class="step-visual" style="border: none; background: transparent;">
-                    <video autoplay loop muted playsinline style="width: 100%; height: auto; display: block;">
+                <div class="step-visual">
+                    <video autoplay loop muted playsinline>
                         <source src="videos/video1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
                     </video>
                 </div>
-                <h3 class="uppercase" style="font-size: 0.9rem;">Touch</h3>
-                <p style="font-size: 0.9rem; color: #666;">A light push is all it takes to open and close your door.</p>
+                <h3 class="uppercase">Touch</h3>
+                <p>A light push is all it takes to open and close your door.</p>
+                <div class="next-indicator">Next <span class="arrow">→</span></div>
             </div>
             <div class="step-item">
                 <div class="step-number">03</div>
-                <div class="step-visual" style="border: none; background: transparent;">
-                    <video autoplay loop muted playsinline style="width: 100%; height: auto; display: block;">
+                <div class="step-visual">
+                    <video autoplay loop muted playsinline>
                         <source src="videos/video1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
                     </video>
                 </div>
-                <h3 class="uppercase" style="font-size: 0.9rem;">Control</h3>
-                <p style="font-size: 0.9rem; color: #666;">Wireless button for remote closure.</p>
+                <h3 class="uppercase">Control</h3>
+                <p>Wireless button for remote closure.</p>
+                <div class="next-indicator">Next <span class="arrow">→</span></div>
             </div>
             <div class="step-item">
                 <div class="step-number">04</div>
-                <div class="step-visual" style="border: none; background: transparent;">
-                    <video autoplay loop muted playsinline style="width: 100%; height: auto; display: block;">
+                <div class="step-visual">
+                    <video autoplay loop muted playsinline>
                         <source src="videos/video1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
                     </video>
                 </div>
-                <h3 class="uppercase" style="font-size: 0.9rem;">Safety</h3>
-                <p style="font-size: 0.9rem; color: #666;">Built to stop safely when it meets resistance.</p>
+                <h3 class="uppercase">Safety</h3>
+                <p>Built to stop safely when it meets resistance.</p>
+                <div class="next-indicator">Next <span class="arrow">→</span></div>
             </div>
         </div>
     </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('stepsContainer');
+            const cards = Array.from(container.querySelectorAll('.step-item'));
+
+            // Initial setup: z-index and video state
+            cards.forEach((card, index) => {
+                card.style.zIndex = cards.length - index;
+                const video = card.querySelector('video');
+                if (video) {
+                    if (index === 0) {
+                        video.play();
+                    } else {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                }
+            });
+
+            container.addEventListener('click', () => {
+                // Find the currently active card (topmost)
+                const currentCard = container.querySelector('.step-item.active') || cards[0];
+                const currentIndex = cards.indexOf(currentCard);
+                const nextIndex = (currentIndex + 1) % cards.length;
+                const nextCard = cards[nextIndex];
+
+                // Pause current video
+                const currentVideo = currentCard.querySelector('video');
+                if (currentVideo) {
+                    currentVideo.pause();
+                }
+
+                // Animate current card out
+                currentCard.classList.add('slide-out');
+                currentCard.classList.remove('active');
+
+                // Prepare next card
+                nextCard.classList.add('active');
+
+                // Reset and play video in the next card
+                const nextVideo = nextCard.querySelector('video');
+                if (nextVideo) {
+                    nextVideo.currentTime = 0;
+                    nextVideo.play();
+                }
+
+                // After animation, reset the current card to the back
+                setTimeout(() => {
+                    currentCard.classList.remove('slide-out');
+                    // Reorder DOM to physically move it to the back for z-index stacking
+                    container.appendChild(currentCard);
+
+                    // Re-assign z-indices based on new DOM order
+                    const newOrder = Array.from(container.querySelectorAll('.step-item'));
+                    newOrder.forEach((card, index) => {
+                        card.style.zIndex = newOrder.length - index;
+                    });
+                }, 600); // Match transition duration
+            });
+        });
+    </script>
 
 
 
