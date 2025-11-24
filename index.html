@@ -773,8 +773,71 @@
 
 <body>
 
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
     <!-- Grid Lines -->
     <div class="grid-line grid-v-center"></div>
+
+    <style>
+        /* Custom Cursor */
+        body {
+            cursor: none;
+            /* Hide default cursor */
+        }
+
+        .cursor-dot,
+        .cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            border-radius: 50%;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-color);
+        }
+
+        .cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        /* Cursor Hover State */
+        body.hovering .cursor-ring {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: transparent;
+        }
+
+        /* Magnetic Button */
+        .magnetic-btn {
+            display: inline-block;
+            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Text Reveal Animation */
+        .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: transform 0.8s cubic-bezier(0.5, 0, 0, 1), opacity 0.8s ease;
+        }
+
+        .char.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 
     <!-- Email Popup Modal -->
     <div class="popup-overlay" id="popupOverlay"></div>
@@ -1032,6 +1095,86 @@
     </footer>
 
     <script>
+        // ... existing script ...
+
+        // Custom Cursor Logic
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorRing = document.getElementById('cursorRing');
+
+        document.addEventListener('mousemove', (e) => {
+            cursorDot.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+
+            // Add a slight delay to the ring for a fluid feel
+            setTimeout(() => {
+                cursorRing.style.top = e.clientY + 'px';
+                cursorRing.style.left = e.clientX + 'px';
+            }, 50);
+        });
+
+        // Hover states
+        const hoverables = document.querySelectorAll('a, button, .step-item, .aesthetic-item');
+        hoverables.forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+
+        // Magnetic Button Logic
+        const buttons = document.querySelectorAll('.btn-outline, .popup-button');
+        buttons.forEach(btn => {
+            btn.classList.add('magnetic-btn');
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // Staggered Text Reveal
+        const heroTitle = document.querySelector('.hero h1');
+        if (heroTitle) {
+            const text = heroTitle.innerText; // Use innerText to preserve line breaks if possible, but splitting by char is tricky with BRs.
+            // Simple approach: split by words or just wrap chars. Let's wrap chars but respect BRs.
+            // Actually, let's just target the text nodes.
+            // For simplicity in this context, let's just wrap the text content of the H1.
+            // But wait, H1 has a <br>.
+            const html = heroTitle.innerHTML;
+            heroTitle.innerHTML = '';
+
+            // Helper to wrap chars
+            const wrapChars = (str) => {
+                return str.split('').map((char, i) => {
+                    return char === ' ' ? '&nbsp;' : `<span class="char" style="transition-delay: ${i * 0.05}s">${char}</span>`;
+                }).join('');
+            };
+
+            // Reconstruct with wrapped chars
+            // This is a bit hacky for HTML with <br>, but let's try to split by <br>
+            const parts = html.split('<br>');
+            heroTitle.innerHTML = parts.map(part => wrapChars(part.replace(/<[^>]*>/g, ''))).join('<br>');
+
+            // Trigger animation
+            setTimeout(() => {
+                const chars = heroTitle.querySelectorAll('.char');
+                chars.forEach(char => char.classList.add('revealed'));
+            }, 500);
+        }
+
+        // Parallax Effect
+        const heroText = document.querySelector('.hero-text');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            if (heroText) {
+                heroText.style.backgroundPositionY = `calc(100% + ${scrolled * 0.5}px)`;
+            }
+        });
+
         // Scroll Animation
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {
