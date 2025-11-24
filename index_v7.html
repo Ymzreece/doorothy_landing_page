@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doorothy | Engineering Access</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        /* 
+         * Version 7: Vibrant Modern / Dark Gradient
+         * Theme: Deep dark background, vibrant gradients, glassmorphism.
+         * Vibe: Futuristic, SaaS-like, high-tech.
+         */
+        :root {
+            --bg-color: #0a0a12;
+            --bg-secondary: #13131f;
+            --text-color: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent-primary: #00f2ff;
+            /* Cyan */
+            --accent-secondary: #bd00ff;
+            /* Magenta */
+            --gradient-main: linear-gradient(135deg, #00f2ff 0%, #bd00ff 100%);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Inter', sans-serif;
+            --max-width: 1200px;
+            --header-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Background Glow Effects */
+        .glow-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .glow-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .blob-1 {
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: var(--accent-secondary);
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: var(--accent-primary);
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(30px, 50px);
+            }
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .gradient-text {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Layout Utility */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 1000;
+            background: rgba(10, 10, 18, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: var(--header-height);
+            position: relative;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 5rem;
+            margin-bottom: 30px;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-visual {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 80px rgba(0, 242, 255, 0.2);
+            border: 1px solid var(--glass-border);
+        }
+
+        .hero-visual img {
+            width: 100%;
+            display: block;
+            transform: scale(1.05);
+            /* Slight zoom */
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--gradient-main);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(189, 0, 255, 0.4);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 120px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .section-desc {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Workflow Cards */
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .workflow-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 30px;
+            transition: transform 0.3s, border-color 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .workflow-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-primary);
+        }
+
+        .step-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+
+        .step-visual {
+            width: 100%;
+            height: 150px;
+            /* Fixed height for consistency */
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: #000;
+        }
+
+        .step-visual video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.3s, transform 0.5s;
+        }
+
+        .workflow-card:hover .step-visual video {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .workflow-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .workflow-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Aesthetic Grid */
+        .aesthetic-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .aesthetic-grid-visual {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .aesthetic-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            border: 1px solid var(--glass-border);
+        }
+
+        .aesthetic-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .aesthetic-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .aesthetic-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Specs Table */
+        .specs-container {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 60px;
+            border: 1px solid var(--glass-border);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specs-table td {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--glass-border);
+            font-size: 1.1rem;
+        }
+
+        .specs-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .specs-label {
+            color: var(--text-secondary);
+            width: 40%;
+        }
+
+        .specs-value {
+            color: #fff;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* Kickstarter */
+        .kickstarter-section {
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .kickstarter-logo {
+            max-width: 300px;
+            filter: brightness(0) invert(1);
+            /* Make white */
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 80px 0;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-cta {
+            background: var(--bg-secondary);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .footer-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--text-secondary);
+            padding: 15px 0;
+            color: #fff;
+            font-size: 1.1rem;
+            font-family: var(--font-main);
+        }
+
+        .footer-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        /* Popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .email-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: #13131f;
+            border: 1px solid var(--accent-primary);
+            border-radius: 20px;
+            padding: 60px;
+            z-index: 2000;
+            max-width: 500px;
+            width: 90%;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.2);
+        }
+
+        .email-popup.show,
+        .popup-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .email-popup.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--text-secondary);
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .popup-close:hover {
+            color: #fff;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero-text p {
+                margin: 0 auto 40px;
+            }
+
+            .workflow-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .aesthetic-section {
+                grid-template-columns: 1fr;
+            }
+
+            .specs-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .footer-cta {
+                flex-direction: column;
+            }
+
+            .footer-input {
+                width: 100%;
+            }
+
+            .btn-primary {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .workflow-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Glow -->
+    <div class="glow-bg">
+        <div class="glow-blob blob-1"></div>
+        <div class="glow-blob blob-2"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">ABITAT</div>
+        <button class="btn-primary" style="padding: 10px 24px; font-size: 0.9rem;">Pre-order</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <div class="uppercase gradient-text" style="margin-bottom: 20px;">The Future of Entry</div>
+                <h1>The Art of<br><span class="gradient-text">Access.</span></h1>
+                <p>A precision-engineered device that transforms any door into an automated entry point. Minimalist
+                    design, maximum utility.</p>
+                <button class="btn-primary">Reserve Launch Invite</button>
+            </div>
+            <div class="hero-visual">
+                <img src="images/door_opener.png" alt="Doorothy Device">
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Seamless <span class="gradient-text">Integration</span></h2>
+                <p class="section-desc">Designed to fit your life without disrupting your space. Installation is
+                    intuitive and tool-free.</p>
+            </div>
+            <div class="workflow-grid">
+                <div class="workflow-card">
+                    <div class="step-number">01</div>
+                    <div class="step-visual">
+                        <video autoplay loop muted playsinline>
+                            <source src="videos/video1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <h3>Installation</h3>
+                    <p>Peel and stick application. No drilling required.</p>
+                </div>
+                <div class="workflow-card">
+                    <div class="step-number">02</div>
+                    <div class="step-visual">
+                        <video autoplay loop muted playsinline>
+                            <source src="videos/video1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <h3>Touch</h3>
+                    <p>A light push is all it takes to open and close your door.</p>
+                </div>
+                <div class="workflow-card">
+                    <div class="step-number">03</div>
+                    <div class="step-visual">
+                        <video autoplay loop muted playsinline>
+                            <source src="videos/video1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <h3>Control</h3>
+                    <p>Wireless button for remote closure.</p>
+                </div>
+                <div class="workflow-card">
+                    <div class="step-number">04</div>
+                    <div class="step-visual">
+                        <video autoplay loop muted playsinline>
+                            <source src="videos/video1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <h3>Safety</h3>
+                    <p>Built to stop safely when it meets resistance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aesthetic Section -->
+    <section class="section">
+        <div class="container aesthetic-section">
+            <div class="aesthetic-text">
+                <h2 class="section-title">Blends In.<br><span class="gradient-text">Stands Out.</span></h2>
+                <p class="section-desc" style="margin: 0; text-align: left;">A door opener that looks as good as it
+                    works. Crafted with plastic-free materials for a cleaner, modern feel. Doorothy adds harmony, not
+                    clutter.</p>
+            </div>
+            <div class="aesthetic-grid-visual">
+                <div class="aesthetic-item">
+                    <img src="images/corner_door_3.png" alt="Carpet">
+                    <div class="aesthetic-caption">Fig 1. Carpet</div>
+                </div>
+                <div class="aesthetic-item">
+                    <img src="images/corner_door_1.png" alt="Wooden Floor">
+                    <div class="aesthetic-caption">Fig 2. Wooden Floor</div>
+                </div>
+                <div class="aesthetic-item">
+                    <img src="images/corner_door_2.png" alt="Material">
+                    <div class="aesthetic-caption">Fig 3. Material Variant</div>
+                </div>
+                <div class="aesthetic-item">
+                    <img src="images/button.png" alt="Button">
+                    <div class="aesthetic-caption">Fig 4. Wireless Control</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specs Section -->
+    <section class="section">
+        <div class="container">
+            <div class="specs-container">
+                <div>
+                    <h2 class="section-title">Technical<br>Specifications</h2>
+                    <p class="section-desc" style="text-align: left; margin: 0;">Built to last with premium materials
+                        and advanced electronics.</p>
+                </div>
+                <table class="specs-table">
+                    <tr>
+                        <td class="specs-label">Connectivity</td>
+                        <td class="specs-value">BLE (No App Required)</td>
+                    </tr>
+                    <tr>
+                        <td class="specs-label">Response Time</td>
+                        <td class="specs-value">
+                            < 100ms</td>
+                    </tr>
+                    <tr>
+                        <td class="specs-label">Battery Life</td>
+                        <td class="specs-value">18 Months (Typical)</td>
+                    </tr>
+                    <tr>
+                        <td class="specs-label">Acoustics</td>
+                        <td class="specs-value">
+                            < 40dB (Whisper Quiet)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kickstarter -->
+    <section class="kickstarter-section">
+        <div class="container">
+            <p class="uppercase" style="color: var(--text-secondary); margin-bottom: 20px;">Coming Soon On</p>
+            <img src="images/Kickstarter-logo.png" alt="Kickstarter" class="kickstarter-logo">
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div>
+                <h2 style="margin-bottom: 10px;">Get An Exclusive🤫 Discount</h2>
+                <p style="color: var(--text-secondary);">We're Launching Soon. Don't miss out.</p>
+            </div>
+            <div class="footer-cta">
+                <input type="email" class="footer-input" placeholder="Enter your email address">
+                <button class="btn-primary">Reserve</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Popup -->
+    <div class="popup-overlay" id="popupOverlay"></div>
+    <div class="email-popup" id="emailPopup">
+        <button class="popup-close" id="popupClose">&times;</button>
+        <h2 style="margin-bottom: 10px;">Get An Exclusive🤫 Discount</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 30px;">We're launching soon! Be the first to know.</p>
+        <form id="popupForm" style="display: flex; flex-direction: column; gap: 20px;">
+            <input type="email" class="footer-input" placeholder="Enter your email" required style="width: 100%;">
+            <button type="submit" class="btn-primary" style="width: 100%;">Reserve My Discount</button>
+        </form>
+    </div>
+
+    <script>
+        // Email Collection Logic
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUteb2diB_TvmVjcR1NzCgKYn8INtpHjt_aFC8ZWcHdZJq21hucpPTxbNJjBjym85-/exec';
+
+        // Popup Logic
+        let scrollCount = 0;
+        let lastScrollTop = 0;
+        let popupShown = false;
+
+        const popup = document.getElementById('emailPopup');
+        const overlay = document.getElementById('popupOverlay');
+        const closeBtn = document.getElementById('popupClose');
+        const popupForm = document.getElementById('popupForm');
+        const footerInput = document.querySelector('.footer-cta input');
+        const footerBtn = document.querySelector('.footer-cta button');
+
+        window.addEventListener('scroll', function () {
+            if (popupShown) return;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                scrollCount++;
+                if (scrollCount >= 2) showPopup();
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        function showPopup() {
+            popup.classList.add('show');
+            overlay.classList.add('show');
+            popupShown = true;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hidePopup() {
+            popup.classList.remove('show');
+            overlay.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        closeBtn.addEventListener('click', hidePopup);
+        overlay.addEventListener('click', hidePopup);
+
+        // Email Submission
+        async function submitEmail(email, source, btnElement) {
+            const originalText = btnElement.textContent;
+            btnElement.textContent = 'Submitting...';
+            btnElement.disabled = true;
+
+            const emailData = {
+                email: email,
+                source: source,
+                timestamp: new Date().toISOString(),
+                page: window.location.href
+            };
+
+            // Local Storage
+            let emails = JSON.parse(localStorage.getItem('doorothy_emails') || '[]');
+            emails.push(emailData);
+            localStorage.setItem('doorothy_emails', JSON.stringify(emails));
+
+            // Google Sheets
+            if (GOOGLE_SCRIPT_URL) {
+                try {
+                    await fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(emailData)
+                    });
+                } catch (e) { console.error(e); }
+            }
+
+            btnElement.textContent = '✓ Reserved!';
+            btnElement.style.background = 'linear-gradient(135deg, #00ff88 0%, #00cc6a 100%)';
+
+            setTimeout(() => {
+                if (source === 'popup') hidePopup();
+                btnElement.textContent = originalText;
+                btnElement.disabled = false;
+                btnElement.style.background = '';
+            }, 2000);
+        }
+
+        popupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            submitEmail(popupForm.querySelector('input').value, 'popup', popupForm.querySelector('button'));
+        });
+
+        footerBtn.addEventListener('click', () => {
+            if (footerInput.value) submitEmail(footerInput.value, 'footer', footerBtn);
+        });
+    </script>
+</body>
+
+</html>
