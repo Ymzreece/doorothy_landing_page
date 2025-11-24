@@ -446,6 +446,14 @@
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+
+        .aesthetic-item:hover .aesthetic-caption {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Section 4: Specs (Table) */
@@ -465,21 +473,31 @@
 
         .specs-table tr {
             border-bottom: 1px solid var(--line-color);
+            transition: background 0.3s;
+        }
+
+        .specs-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .specs-table td {
-            padding: 20px 0;
+            padding: 20px 10px;
             font-size: 1.1rem;
         }
 
         .specs-table td:first-child {
-            font-family: var(--font-serif);
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
             color: var(--text-light);
             width: 40%;
         }
 
         .specs-table td:last-child {
-            font-weight: 500;
+            font-weight: 400;
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
         }
 
         /* Section 5: Kickstarter */
@@ -518,7 +536,8 @@
             max-width: var(--max-width);
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            /* Align to top for better multi-line handling */
         }
 
         .footer-cta {
@@ -526,24 +545,27 @@
             align-items: center;
             gap: 20px;
             font-size: 1.2rem;
+            margin-top: 10px;
         }
 
         .footer-col h4 {
             color: var(--text-color);
             margin-bottom: 20px;
             font-family: var(--font-serif);
+            font-size: 1.5rem;
         }
 
         .footer-input {
             border: none;
-            border-bottom: 2px solid currentColor;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             background: transparent;
             padding: 12px 0;
-            width: 350px;
+            width: 300px;
             font-family: var(--font-sans);
             margin-right: 15px;
             color: currentColor;
-            font-size: 1.1rem;
+            font-size: 1rem;
+            transition: border-color 0.3s;
         }
 
         .footer-input::placeholder {
@@ -907,7 +929,7 @@
 
     <!-- Section 3: Aesthetic -->
     <!-- Section 3: Aesthetic -->
-    <section class="section" style="display: grid; grid-template-columns: 1fr 1fr; padding: 0;">
+    <section class="section reveal" id="gallery" style="display: grid; grid-template-columns: 1fr 1fr; padding: 0;">
         <div
             style="display: flex; flex-direction: column; justify-content: center; padding: 80px 60px; border-right: 1px solid var(--line-color);">
             <h2 class="section-title" style="margin-bottom: 20px; padding: 0;">Blends In.<br>Stands Out.</h2>
@@ -953,7 +975,7 @@
     </section>
 
     <!-- Section 4: Specs -->
-    <section class="specs-section">
+    <section class="specs-section reveal" id="specs">
         <div>
             <h2 class="section-title" style="margin-bottom: 20px;">Technical<br>Specifications</h2>
             <p class="section-desc" style="margin-bottom: 40px;">Built to last with premium materials and advanced
@@ -985,14 +1007,14 @@
     </section>
 
     <!-- Section 5: Kickstarter -->
-    <section class="kickstarter-section">
+    <section class="kickstarter-section reveal">
         <p class="uppercase" style="margin-bottom: 20px; letter-spacing: 2px;">Coming soon on</p>
         <img src="images/Kickstarter-logo.png" alt="Kickstarter" class="kickstarter-logo">
         <br>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="reveal">
         <div class="footer-content">
             <div style="display: flex; flex-direction: column; gap: 5px;">
                 <div class="uppercase" style="font-weight: 600; letter-spacing: 1px;">Get An Exclusive🤫 Discount</div>
@@ -1010,13 +1032,29 @@
     </footer>
 
     <script>
+        // Scroll Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+
         // ============================================
         // EMAIL COLLECTION SYSTEM
         // ============================================
 
         // CONFIGURATION: Add your Google Apps Script Web App URL here
         // Instructions: See comments at bottom of this script
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyKoPKo8YfQM3vsL4j5oEvgEYY6lqwBDCuKn4mMj6Qt5ksJzs8DqhIzboO41ohzlro8/exec'; // Leave empty to use localStorage only
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyKoPKo8YfQM3vsL4j5oEvgEYY6lqwBDCuKn4mMj6Qt5ksJzs8DqhIzboO41ohzlro1/exec'; // Leave empty to use localStorage only
 
         let scrollCount = 0;
         let lastScrollTop = 0;
