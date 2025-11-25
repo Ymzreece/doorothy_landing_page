@@ -339,6 +339,32 @@
             margin-bottom: 20px;
             overflow: hidden;
             border-radius: 4px;
+            position: relative;
+        }
+
+        .video-loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-top-color: var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .video-loader.hidden {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
         }
 
         .step-visual video {
@@ -919,6 +945,7 @@
             <div class="video-carousel">
                 <div class="step-item active" data-index="0">
                     <div class="step-visual">
+                        <div class="video-loader"></div>
                         <video muted playsinline>
                             <source src="videos/video1.mp4" type="video/mp4">
                         </video>
@@ -930,6 +957,7 @@
                 </div>
                 <div class="step-item" data-index="1">
                     <div class="step-visual">
+                        <div class="video-loader"></div>
                         <video muted playsinline>
                             <source src="videos/video2.mp4" type="video/mp4">
                         </video>
@@ -941,6 +969,7 @@
                 </div>
                 <div class="step-item" data-index="2">
                     <div class="step-visual">
+                        <div class="video-loader"></div>
                         <video muted playsinline>
                             <source src="videos/video1.mp4" type="video/mp4">
                         </video>
@@ -952,6 +981,7 @@
                 </div>
                 <div class="step-item" data-index="3">
                     <div class="step-visual">
+                        <div class="video-loader"></div>
                         <video muted playsinline>
                             <source src="videos/video2.mp4" type="video/mp4">
                         </video>
@@ -1014,7 +1044,24 @@
 
                 // Play current video
                 const currentVideo = videoItems[index].querySelector('video');
+                const currentLoader = videoItems[index].querySelector('.video-loader');
+
                 if (currentVideo) {
+                    // Show loader initially
+                    if (currentLoader) {
+                        currentLoader.classList.remove('hidden');
+                    }
+
+                    // Hide loader when video starts playing
+                    const hideLoader = () => {
+                        if (currentLoader) {
+                            currentLoader.classList.add('hidden');
+                        }
+                    };
+
+                    currentVideo.addEventListener('playing', hideLoader, { once: true });
+                    currentVideo.addEventListener('canplaythrough', hideLoader, { once: true });
+
                     currentVideo.play().catch(e => console.log('Autoplay prevented:', e));
 
                     // Set up auto-advance when video ends
