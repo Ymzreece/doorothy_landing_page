@@ -290,56 +290,121 @@
         }
 
         .steps-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            display: flex;
+            gap: 30px;
             padding: 40px;
             background: var(--bg-color);
             border-left: 1px solid var(--line-color);
+            min-height: 600px;
+        }
+
+        .video-carousel {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .step-item {
-            position: relative;
+            position: absolute;
             width: 100%;
-            height: auto;
+            height: 100%;
             background: #1A1A1A;
             padding: 30px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
             border: 1px solid #333;
-            transition: all 0.3s ease;
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+        }
+
+        .step-item.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+            z-index: 10;
         }
 
         .step-item:hover {
             border-color: var(--accent-color);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .step-number {
-            font-family: var(--font-serif);
-            font-size: 1.2rem;
-            color: var(--accent-color);
-            margin-bottom: 15px;
         }
 
         .step-visual {
             width: 100%;
             aspect-ratio: 16 / 9;
             background: #000;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             overflow: hidden;
             border-radius: 4px;
-            /* Optional: adds a slight polish */
         }
 
         .step-visual video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* User asked to fill box more, cover fills it. If they want full video visible, contain is better but might leave gaps. User said "fill the video box more" but "do not change ratio". If the box is 16:9 and video is 16:9, cover/contain are same. If box is different, cover fills. Let's stick to cover as it fills the box. */
             display: block;
+        }
+
+        .step-info {
+            margin-top: auto;
+        }
+
+        .step-info h3 {
+            font-family: var(--font-sans);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .step-info p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Navigation Buttons */
+        .video-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-width: 200px;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid #333;
+            padding: 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-btn.active {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-number {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .nav-label {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
         }
 
         .step-item h3 {
@@ -850,54 +915,133 @@
             <img src="images/finger2.png" class="finger-bg" alt="">
         </div>
         <div class="steps-container" id="stepsContainer">
-            <!-- Grid Layout -->
-            <div class="step-item">
-                <div class="step-visual">
-                    <video autoplay loop muted playsinline>
-                        <source src="videos/video1.mp4" type="video/mp4">
-                    </video>
+            <!-- Main Video Display -->
+            <div class="video-carousel">
+                <div class="step-item active" data-index="0">
+                    <div class="step-visual">
+                        <video muted playsinline>
+                            <source src="videos/video1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="step-info">
+                        <h3 class="uppercase">Installation</h3>
+                        <p>Peel and stick application. No drilling required.</p>
+                    </div>
                 </div>
-                <h3 class="uppercase">Installation</h3>
-                <p>Peel and stick application. No drilling required.</p>
+                <div class="step-item" data-index="1">
+                    <div class="step-visual">
+                        <video muted playsinline>
+                            <source src="videos/video2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="step-info">
+                        <h3 class="uppercase">Touch</h3>
+                        <p>A light push is all it takes to open/close your door.</p>
+                    </div>
+                </div>
+                <div class="step-item" data-index="2">
+                    <div class="step-visual">
+                        <video muted playsinline>
+                            <source src="videos/video2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="step-info">
+                        <h3 class="uppercase">Control</h3>
+                        <p>Wireless button for remote closure.</p>
+                    </div>
+                </div>
+                <div class="step-item" data-index="3">
+                    <div class="step-visual">
+                        <video muted playsinline>
+                            <source src="videos/video1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="step-info">
+                        <h3 class="uppercase">Safety</h3>
+                        <p>Built to stop safely when it meets resistance.</p>
+                    </div>
+                </div>
             </div>
-            <div class="step-item">
-                <div class="step-visual">
-                    <video autoplay loop muted playsinline>
-                        <source src="videos/video2.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <h3 class="uppercase">Touch</h3>
-                <p>A light push is all it takes to open/close your door.</p>
-            </div>
-            <div class="step-item">
-                <div class="step-visual">
-                    <video autoplay loop muted playsinline>
-                        <source src="videos/video2.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <h3 class="uppercase">Control</h3>
-                <p>Wireless button for remote closure.</p>
-            </div>
-            <div class="step-item">
-                <div class="step-visual">
-                    <video autoplay loop muted playsinline>
-                        <source src="videos/video1.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <h3 class="uppercase">Safety</h3>
-                <p>Built to stop safely when it meets resistance.</p>
+
+            <!-- Navigation Buttons -->
+            <div class="video-nav">
+                <button class="nav-btn active" data-index="0">
+                    <span class="nav-number">01</span>
+                    <span class="nav-label">Installation</span>
+                </button>
+                <button class="nav-btn" data-index="1">
+                    <span class="nav-number">02</span>
+                    <span class="nav-label">Touch</span>
+                </button>
+                <button class="nav-btn" data-index="2">
+                    <span class="nav-number">03</span>
+                    <span class="nav-label">Control</span>
+                </button>
+                <button class="nav-btn" data-index="3">
+                    <span class="nav-number">04</span>
+                    <span class="nav-label">Safety</span>
+                </button>
             </div>
         </div>
     </section>
 
     <script>
-        // Card stack logic removed for grid layout
+        // Video Carousel Auto-play
         document.addEventListener('DOMContentLoaded', () => {
-            // Ensure all videos play
-            const videos = document.querySelectorAll('.step-visual video');
-            videos.forEach(video => {
-                video.play().catch(e => console.log('Autoplay prevented:', e));
+            const videoItems = document.querySelectorAll('.step-item');
+            const navBtns = document.querySelectorAll('.nav-btn');
+            let currentIndex = 0;
+            let autoPlayEnabled = true;
+            let autoPlayTimeout;
+
+            function switchToVideo(index) {
+                // Remove active class from all
+                videoItems.forEach(item => item.classList.remove('active'));
+                navBtns.forEach(btn => btn.classList.remove('active'));
+
+                // Add active class to current
+                videoItems[index].classList.add('active');
+                navBtns[index].classList.add('active');
+
+                // Stop all videos
+                videoItems.forEach(item => {
+                    const video = item.querySelector('video');
+                    if (video) {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                });
+
+                // Play current video
+                const currentVideo = videoItems[index].querySelector('video');
+                if (currentVideo) {
+                    currentVideo.play().catch(e => console.log('Autoplay prevented:', e));
+
+                    // Set up auto-advance when video ends
+                    if (autoPlayEnabled) {
+                        currentVideo.onended = () => {
+                            autoPlayTimeout = setTimeout(() => {
+                                currentIndex = (currentIndex + 1) % videoItems.length;
+                                switchToVideo(currentIndex);
+                            }, 500); // Small delay before next video
+                        };
+                    }
+                }
+
+                currentIndex = index;
+            }
+
+            // Manual navigation
+            navBtns.forEach((btn, index) => {
+                btn.addEventListener('click', () => {
+                    autoPlayEnabled = false; // Disable auto-play when user manually selects
+                    clearTimeout(autoPlayTimeout);
+                    switchToVideo(index);
+                });
             });
+
+            // Start with first video
+            switchToVideo(0);
         });
     </script>
 
