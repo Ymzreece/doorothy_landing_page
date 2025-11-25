@@ -259,6 +259,7 @@
             margin-bottom: 0;
             position: relative;
             z-index: 1;
+            overflow: hidden;
         }
 
         .finger-bg {
@@ -1081,6 +1082,8 @@
         // Parallax Effect
         const heroText = document.querySelector('.hero-text');
         const heroVisual = document.querySelector('.hero-visual img');
+        const fingerBg = document.querySelector('.finger-bg');
+
         window.addEventListener('scroll', () => {
             const scrolled = window.scrollY;
             if (heroText) {
@@ -1088,6 +1091,23 @@
             }
             if (heroVisual) {
                 heroVisual.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+
+            // Finger background parallax
+            if (fingerBg) {
+                const sectionHeader = document.querySelector('.section-header');
+                if (sectionHeader) {
+                    const rect = sectionHeader.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+
+                    // Check if section is in view and bottom of image is visible
+                    if (rect.top < windowHeight && rect.bottom > 0) {
+                        // Calculate how much of the section has scrolled past
+                        const scrollProgress = Math.max(0, windowHeight - rect.bottom);
+                        // Move image down as we scroll (positive translateY moves down)
+                        fingerBg.style.transform = `translateY(${scrollProgress * 0.3}px)`;
+                    }
+                }
             }
         });
 
