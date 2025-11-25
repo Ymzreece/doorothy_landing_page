@@ -253,10 +253,23 @@
         .section-header {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             padding: 80px 60px;
             border-right: 1px solid var(--line-color);
             margin-bottom: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .finger-bg {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            max-width: 800px;
+            z-index: 0;
+            opacity: 0.8;
+            pointer-events: none;
         }
 
         .section-title {
@@ -833,6 +846,7 @@
             <h2 class="section-title">Seamless<br>Integration</h2>
             <p class="section-desc">Designed to fit your life without disrupting your space. Installation is intuitive
                 and tool-free.</p>
+            <img src="images/finger2.png" class="finger-bg" alt="">
         </div>
         <div class="steps-container" id="stepsContainer">
             <!-- Grid Layout -->
@@ -1122,9 +1136,6 @@
             threshold: 0 // Trigger when hero is completely out of view
         });
 
-        if (heroSection) {
-            heroObserver.observe(heroSection);
-        }
 
         function showPopup() {
             popup.classList.add('show');
