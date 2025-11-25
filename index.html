@@ -276,123 +276,55 @@
         }
 
         .steps-container {
-            position: relative;
-            height: 750px;
-            /* Increased height for more vertical spacing */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 40px;
             background: var(--bg-color);
             border-left: 1px solid var(--line-color);
-            overflow: hidden;
-            cursor: pointer;
         }
 
         .step-item {
-            position: absolute;
-            width: 80%;
-            height: fit-content;
-            inset: 0;
-            margin: auto;
+            position: relative;
+            width: 100%;
+            height: auto;
             background: #1A1A1A;
-            padding: 40px 40px 80px;
-            /* Increased bottom padding for Next indicator */
+            padding: 30px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
             border: 1px solid #333;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transform-origin: center center;
-            /* Changed to center for better stacking with margin: auto */
-        }
-
-        /* Stack effect for non-active cards */
-        .step-item:not(.active) {
-            transform: scale(0.95) translateY(20px);
-            opacity: 0.5;
-            filter: blur(2px);
-            pointer-events: none;
-        }
-
-        /* Even further back cards */
-        .step-item:not(.active)+.step-item:not(.active) {
-            transform: scale(0.9) translateY(40px);
-            opacity: 0.3;
-            filter: blur(4px);
-        }
-
-        .step-item.active {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-            filter: blur(0);
-            z-index: 10;
-            cursor: pointer;
-        }
-
-        .step-item.active:hover {
-            transform: scale(1.02) translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-            border-color: var(--accent-color);
-        }
-
-        .step-item.slide-out {
-            transform: translateX(120%) rotate(5deg);
-            opacity: 0;
-        }
-
-        .next-indicator {
-            position: absolute;
-            bottom: 30px;
-            right: 30px;
-            font-family: var(--font-sans);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            opacity: 1;
-            transform: translateX(0);
             transition: all 0.3s ease;
-            animation: pulse-arrow 2s infinite;
         }
 
-        @keyframes pulse-arrow {
-
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-
-            50% {
-                transform: translateX(5px);
-            }
+        .step-item:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .step-number {
             font-family: var(--font-serif);
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: var(--accent-color);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .step-visual {
             width: 100%;
-            height: auto;
-            background: transparent;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            margin-bottom: 15px;
             overflow: hidden;
+            border-radius: 4px;
+            /* Optional: adds a slight polish */
         }
 
         .step-visual video {
             width: 100%;
-            height: auto;
-            object-fit: contain;
+            height: 100%;
+            object-fit: cover;
+            /* User asked to fill box more, cover fills it. If they want full video visible, contain is better but might leave gaps. User said "fill the video box more" but "do not change ratio". If the box is 16:9 and video is 16:9, cover/contain are same. If box is different, cover fills. Let's stick to cover as it fills the box. */
             display: block;
         }
 
@@ -878,9 +810,8 @@
                 and tool-free.</p>
         </div>
         <div class="steps-container" id="stepsContainer">
-            <!-- Cards will be stacked here -->
-            <div class="step-item active">
-                <div class="step-number">01</div>
+            <!-- Grid Layout -->
+            <div class="step-item">
                 <div class="step-visual">
                     <video autoplay loop muted playsinline>
                         <source src="videos/video1.mp4" type="video/mp4">
@@ -888,21 +819,17 @@
                 </div>
                 <h3 class="uppercase">Installation</h3>
                 <p>Peel and stick application. No drilling required.</p>
-                <div class="next-indicator">Next <span class="arrow">→</span></div>
             </div>
             <div class="step-item">
-                <div class="step-number">02</div>
                 <div class="step-visual">
                     <video autoplay loop muted playsinline>
                         <source src="videos/video1.mp4" type="video/mp4">
                     </video>
                 </div>
                 <h3 class="uppercase">Touch</h3>
-                <p>A light push is all it takes to open and close your door.</p>
-                <div class="next-indicator">Next <span class="arrow">→</span></div>
+                <p>A light push is all it takes to open/close your door.</p>
             </div>
             <div class="step-item">
-                <div class="step-number">03</div>
                 <div class="step-visual">
                     <video autoplay loop muted playsinline>
                         <source src="videos/video1.mp4" type="video/mp4">
@@ -910,10 +837,8 @@
                 </div>
                 <h3 class="uppercase">Control</h3>
                 <p>Wireless button for remote closure.</p>
-                <div class="next-indicator">Next <span class="arrow">→</span></div>
             </div>
             <div class="step-item">
-                <div class="step-number">04</div>
                 <div class="step-visual">
                     <video autoplay loop muted playsinline>
                         <source src="videos/video1.mp4" type="video/mp4">
@@ -921,69 +846,17 @@
                 </div>
                 <h3 class="uppercase">Safety</h3>
                 <p>Built to stop safely when it meets resistance.</p>
-                <div class="next-indicator">Next <span class="arrow">→</span></div>
             </div>
         </div>
     </section>
 
     <script>
+        // Card stack logic removed for grid layout
         document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('stepsContainer');
-            const cards = Array.from(container.querySelectorAll('.step-item'));
-
-            // Initial setup: z-index and video state
-            cards.forEach((card, index) => {
-                card.style.zIndex = cards.length - index;
-                const video = card.querySelector('video');
-                if (video) {
-                    if (index === 0) {
-                        video.play();
-                    } else {
-                        video.pause();
-                        video.currentTime = 0;
-                    }
-                }
-            });
-
-            container.addEventListener('click', () => {
-                // Find the currently active card (topmost)
-                const currentCard = container.querySelector('.step-item.active') || cards[0];
-                const currentIndex = cards.indexOf(currentCard);
-                const nextIndex = (currentIndex + 1) % cards.length;
-                const nextCard = cards[nextIndex];
-
-                // Pause current video
-                const currentVideo = currentCard.querySelector('video');
-                if (currentVideo) {
-                    currentVideo.pause();
-                }
-
-                // Animate current card out
-                currentCard.classList.add('slide-out');
-                currentCard.classList.remove('active');
-
-                // Prepare next card
-                nextCard.classList.add('active');
-
-                // Reset and play video in the next card
-                const nextVideo = nextCard.querySelector('video');
-                if (nextVideo) {
-                    nextVideo.currentTime = 0;
-                    nextVideo.play();
-                }
-
-                // After animation, reset the current card to the back
-                setTimeout(() => {
-                    currentCard.classList.remove('slide-out');
-                    // Reorder DOM to physically move it to the back for z-index stacking
-                    container.appendChild(currentCard);
-
-                    // Re-assign z-indices based on new DOM order
-                    const newOrder = Array.from(container.querySelectorAll('.step-item'));
-                    newOrder.forEach((card, index) => {
-                        card.style.zIndex = newOrder.length - index;
-                    });
-                }, 600); // Match transition duration
+            // Ensure all videos play
+            const videos = document.querySelectorAll('.step-visual video');
+            videos.forEach(video => {
+                video.play().catch(e => console.log('Autoplay prevented:', e));
             });
         });
     </script>
