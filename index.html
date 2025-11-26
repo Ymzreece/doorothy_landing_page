@@ -643,7 +643,8 @@
             /* Hero Section */
             .hero {
                 grid-template-columns: 1fr;
-                min-height: auto;
+                min-height: 100vh;
+                /* Fill the screen */
                 padding-top: var(--header-height);
                 display: flex;
                 flex-direction: column;
@@ -651,11 +652,17 @@
             }
 
             .hero-text {
-                padding: 0 20px 40px 20px;
+                padding: 30px 20px 20px 20px;
                 background-size: 75%;
                 background-position: left bottom;
-                min-height: 500px;
-                /* Ensure space for background image */
+                flex: 1;
+                /* Take available space */
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                /* Align to top */
+                min-height: auto;
+                /* Remove fixed height */
             }
 
             .hero h1 {
@@ -669,7 +676,10 @@
             }
 
             .hero-visual {
-                height: 300px;
+                height: auto;
+                flex: 0 0 40%;
+                /* Take about 40% of screen height */
+                min-height: 250px;
             }
 
             /* Section 1: Workflow (Seamless Integration) */
