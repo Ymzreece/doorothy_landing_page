@@ -558,7 +558,7 @@
             width: 100%;
             height: 120px;
             padding: 0 60px;
-            background: #707070;
+            background: #000000;
             border-top: 1px solid var(--line-color);
             display: flex;
             align-items: center;
@@ -690,10 +690,11 @@
             }
 
             .section-header {
-                padding: 40px 20px;
+                padding: 40px 20px 20px 20px;
                 border-right: none;
-                border-bottom: 1px solid var(--line-color);
-                min-height: 300px;
+                border-bottom: none;
+                /* Remove separator line */
+                min-height: auto;
             }
 
             .section-title {
@@ -701,9 +702,8 @@
             }
 
             .finger-bg {
-                max-width: 200px;
-                /* Smaller finger on mobile */
-                opacity: 0.5;
+                display: none;
+                /* Hide background image on mobile */
             }
 
             .steps-container {
@@ -711,35 +711,48 @@
                 padding: 20px;
                 min-height: auto;
                 gap: 20px;
+                border-left: none;
+                /* Remove left border */
             }
 
             .video-carousel {
                 width: 100%;
                 margin-bottom: 20px;
+                min-height: 300px;
+                /* Smaller height for mobile */
             }
 
             .step-visual {
-                margin-bottom: 10px;
+                margin-bottom: 0;
+            }
+
+            .step-info {
+                margin-top: 10px;
             }
 
             .step-item {
                 padding: 15px;
+                background: #1A1A1A;
+                border: none;
             }
 
             .video-nav {
-                flex-direction: row;
-                /* Horizontal buttons on mobile */
-                overflow-x: auto;
-                padding-bottom: 10px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                /* 2x2 grid for buttons */
                 gap: 10px;
-                min-width: 0;
-                justify-content: flex-start;
+                width: 100%;
+                overflow: visible;
+                padding-bottom: 0;
             }
 
             .nav-btn {
-                min-width: 120px;
-                padding: 10px;
-                flex-shrink: 0;
+                min-width: 0;
+                /* Allow shrinking */
+                padding: 15px;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.03);
+                border: none;
             }
 
             .nav-number {
