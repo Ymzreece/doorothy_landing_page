@@ -765,12 +765,21 @@
 
             /* Section 3: Aesthetic (Gallery) */
             .aesthetic-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
+                /* 1 column on mobile - override inline styles */
             }
 
             .aesthetic-item {
                 border-right: none;
                 border-bottom: 1px solid var(--line-color);
+                aspect-ratio: 1;
+                /* Keep square aspect */
+            }
+
+            .aesthetic-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
 
             /* Section 4: Specs */
@@ -974,17 +983,6 @@
 
             .steps-container {
                 grid-template-columns: 1fr 1fr;
-            }
-
-
-
-            .aesthetic-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .aesthetic-item {
-                border-right: none;
-                border-bottom: 1px solid var(--line-color);
             }
 
             .specs-section {
