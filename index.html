@@ -171,7 +171,7 @@
 
         .btn-outline {
             border: 1px solid var(--text-color);
-            background: transparent;
+            background: rgba(255, 255, 255, 0.9);
             padding: 10px 24px;
             border-radius: 0;
             font-size: 0.8rem;
@@ -1265,8 +1265,7 @@
     <!-- Header -->
     <header>
         <div class="logo"><img src="images/logo.png" alt="Logo" style="height: 40px;"></div>
-
-
+        <button class="btn-outline" id="header-reserve-btn">Reserve a Discount</button>
     </header>
 
     <!-- Hero Section -->
@@ -1874,6 +1873,12 @@
         // Close popup handlers
         closeBtn.addEventListener('click', hidePopup);
         overlay.addEventListener('click', hidePopup);
+
+        // Header reserve button handler
+        const headerReserveBtn = document.getElementById('header-reserve-btn');
+        if (headerReserveBtn) {
+            headerReserveBtn.addEventListener('click', showPopup);
+        }
 
         // Email submission function
         async function submitEmail(email, source) {
