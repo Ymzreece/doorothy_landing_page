@@ -1404,13 +1404,31 @@
         // Meta Pixel - Track Reserve Launch Invite button clicks as "Register" event
         document.addEventListener('DOMContentLoaded', function () {
             const reserveButton = document.getElementById('reserve-button');
+            const emailInput = document.querySelector('.footer-input');
+
             if (reserveButton && typeof fbq !== 'undefined') {
                 reserveButton.addEventListener('click', function () {
-                    fbq('track', 'CompleteRegistration', {
+                    // Get email from input field
+                    const email = emailInput ? emailInput.value.trim() : '';
+
+                    // Prepare event data
+                    const eventData = {
                         content_name: 'Reserve Launch Invite',
                         status: 'completed'
-                    });
-                    console.log('Meta Pixel: Register event tracked');
+                    };
+
+                    // If email is provided, add it to advanced matching
+                    if (email && email.includes('@')) {
+                        // Track with advanced matching for better attribution
+                        fbq('track', 'CompleteRegistration', eventData, {
+                            em: email // Email for advanced matching (Meta will hash it automatically)
+                        });
+                        console.log('Meta Pixel: Register event tracked with email');
+                    } else {
+                        // Track without email
+                        fbq('track', 'CompleteRegistration', eventData);
+                        console.log('Meta Pixel: Register event tracked (no email provided)');
+                    }
                 });
             }
         });
