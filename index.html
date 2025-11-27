@@ -885,8 +885,11 @@
             /* Section 4: Specs */
             .specs-section {
                 grid-template-columns: 1fr;
-                padding: 40px 20px;
+                padding: 40px 20px 60px 20px;
+                /* Added bottom padding for spacing before footer */
                 gap: 30px;
+                max-height: none;
+                /* Remove height constraint on mobile */
             }
 
             .specs-table td {
