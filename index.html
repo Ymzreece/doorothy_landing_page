@@ -640,6 +640,11 @@
             border-bottom-color: var(--accent-color);
         }
 
+        /* Hide gallery arrows on desktop */
+        .gallery-nav {
+            display: none;
+        }
+
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
 
@@ -841,6 +846,20 @@
                 height: auto !important;
                 max-height: 350px !important;
                 object-fit: cover !important;
+                transform: none !important;
+                /* Remove zoom effect */
+                transition: none !important;
+                /* Remove transition */
+            }
+
+            /* Always show captions on mobile */
+            .aesthetic-item .aesthetic-caption {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                position: relative !important;
+                bottom: auto !important;
+                left: auto !important;
+                margin-top: 10px !important;
             }
 
             /* Aesthetic section text container */
@@ -905,8 +924,56 @@
                 padding: 30px;
             }
 
+
             .email-popup h2 {
                 font-size: 1.5rem;
+            }
+
+
+            /* Gallery Navigation Arrows */
+            .gallery-nav {
+                display: none;
+                /* Hidden by default (desktop) */
+            }
+
+            /* Show arrows on mobile only */
+            @media (max-width: 768px) {
+                .gallery-nav {
+                    display: flex;
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: rgba(0, 0, 0, 0.5);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    color: white;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    z-index: 20;
+                    transition: all 0.3s ease;
+                    backdrop-filter: blur(5px);
+                }
+
+                .gallery-nav:hover {
+                    background: rgba(0, 0, 0, 0.8);
+                    border-color: var(--accent-color);
+                }
+
+                .gallery-nav.prev-btn {
+                    left: 10px;
+                }
+
+                .gallery-nav.next-btn {
+                    right: 10px;
+                }
+
+                .gallery-nav svg {
+                    width: 20px;
+                    height: 20px;
+                }
             }
         }
 
@@ -1367,6 +1434,8 @@
             if (window.innerWidth <= 768) {
                 const aestheticGrid = document.querySelector('.aesthetic-grid');
                 const aestheticItems = document.querySelectorAll('.aesthetic-item');
+                const prevBtn = document.querySelector('.gallery-nav.prev-btn');
+                const nextBtn = document.querySelector('.gallery-nav.next-btn');
 
                 if (!aestheticGrid || aestheticItems.length === 0) {
                     console.log('Aesthetic grid or items not found');
@@ -1386,6 +1455,16 @@
                             item.classList.add('prev');
                         }
                     });
+
+                    // Update Arrow Visibility
+                    if (prevBtn) {
+                        prevBtn.style.opacity = index === 0 ? '0' : '1';
+                        prevBtn.style.pointerEvents = index === 0 ? 'none' : 'auto';
+                    }
+                    if (nextBtn) {
+                        nextBtn.style.opacity = index === aestheticItems.length - 1 ? '0' : '1';
+                        nextBtn.style.pointerEvents = index === aestheticItems.length - 1 ? 'none' : 'auto';
+                    }
                 }
 
                 aestheticGrid.addEventListener('touchstart', (e) => {
@@ -1405,16 +1484,41 @@
                     const diff = startX - endX;
 
                     if (Math.abs(diff) > 50) { // Minimum swipe distance
-                        if (diff > 0 && currentPhotoIndex < aestheticItems.length - 1) {
+                        if (diff > 0) {
                             // Swipe left - next photo
-                            currentPhotoIndex++;
-                        } else if (diff < 0 && currentPhotoIndex > 0) {
+                            if (currentPhotoIndex < aestheticItems.length - 1) {
+                                currentPhotoIndex++;
+                            }
+                        } else if (diff < 0) {
                             // Swipe right - previous photo
-                            currentPhotoIndex--;
+                            if (currentPhotoIndex > 0) {
+                                currentPhotoIndex--;
+                            }
                         }
                         showPhoto(currentPhotoIndex);
                     }
                 });
+
+                // Arrow Navigation
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent triggering grid click
+                        if (currentPhotoIndex > 0) {
+                            currentPhotoIndex--;
+                            showPhoto(currentPhotoIndex);
+                        }
+                    });
+                }
+
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent triggering grid click
+                        if (currentPhotoIndex < aestheticItems.length - 1) {
+                            currentPhotoIndex++;
+                            showPhoto(currentPhotoIndex);
+                        }
+                    });
+                }
 
                 // Show first photo immediately
                 setTimeout(() => showPhoto(0), 100);
@@ -1520,6 +1624,20 @@
                     style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px;">
                     Fig 4. Material Variant 2</div>
             </div>
+
+            <!-- Navigation Arrows -->
+            <button class="gallery-nav prev-btn" aria-label="Previous Image">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            <button class="gallery-nav next-btn" aria-label="Next Image">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
         </div>
     </section>
 
