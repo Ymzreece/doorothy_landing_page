@@ -677,14 +677,16 @@
                 grid-template-columns: 1fr;
                 min-height: 100vh;
                 /* Fill the screen */
-                padding-top: var(--header-height);
+                padding-top: 20px;
+                /* Remove padding-top to eliminate black space */
                 display: flex;
                 flex-direction: column;
                 /* Text on top, Visual below */
             }
 
             .hero-text {
-                padding: 30px 20px 20px 20px;
+                padding: 70px 20px 20px 20px;
+                /* Increased top padding to account for fixed header */
                 background-size: 75%;
                 background-position: left bottom;
                 flex: 1;
@@ -695,6 +697,11 @@
                 /* Align to top */
                 min-height: auto;
                 /* Remove fixed height */
+            }
+
+            .hero-label {
+                margin-bottom: 10px;
+                /* Reduced from default 20px */
             }
 
             .hero h1 {
