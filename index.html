@@ -1095,6 +1095,19 @@
             /* Hide default cursor */
         }
 
+        /* Show default cursor on mobile/touch devices */
+        @media (max-width: 768px),
+        (hover: none) {
+            body {
+                cursor: auto !important;
+            }
+
+            .cursor-dot,
+            .cursor-ring {
+                display: none !important;
+            }
+        }
+
         .cursor-dot,
         .cursor-ring {
             position: fixed;
