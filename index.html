@@ -765,21 +765,55 @@
 
             /* Section 3: Aesthetic (Gallery) */
             .aesthetic-grid {
-                grid-template-columns: 1fr !important;
-                /* 1 column on mobile - override inline styles */
+                position: relative !important;
+                height: 450px !important;
+                overflow: hidden !important;
+                display: block !important;
+                background: transparent !important;
+                gap: 0 !important;
             }
 
             .aesthetic-item {
-                border-right: none;
-                border-bottom: 1px solid var(--line-color);
-                aspect-ratio: 1;
-                /* Keep square aspect */
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                border: none !important;
+                opacity: 0 !important;
+                transform: translateX(100%) !important;
+                transition: all 0.4s ease !important;
+                z-index: 1 !important;
+                padding: 20px !important;
+                background: var(--bg-color) !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+            }
+
+            /* Make first photo visible by default */
+            .aesthetic-item:first-of-type {
+                opacity: 1 !important;
+                transform: translateX(0) !important;
+                z-index: 10 !important;
+            }
+
+            .aesthetic-item.active {
+                opacity: 1 !important;
+                transform: translateX(0) !important;
+                z-index: 10 !important;
+            }
+
+            .aesthetic-item.prev {
+                opacity: 0 !important;
+                transform: translateX(-100%) !important;
             }
 
             .aesthetic-item img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
+                width: 100% !important;
+                height: auto !important;
+                max-height: 350px !important;
+                object-fit: cover !important;
             }
 
             /* Aesthetic section text container */
@@ -1144,7 +1178,7 @@
                     <div class="step-visual">
                         <div class="video-loader"></div>
                         <video muted playsinline>
-                            <source src="videos/video1.mp4" type="video/mp4">
+                            <source src="videos/backup/video1.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div class="step-info">
@@ -1286,6 +1320,65 @@
 
             // Start with first video
             switchToVideo(0);
+        });
+
+        // Photo Stack Swipe Functionality (Mobile Only)
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.innerWidth <= 768) {
+                const aestheticGrid = document.querySelector('.aesthetic-grid');
+                const aestheticItems = document.querySelectorAll('.aesthetic-item');
+
+                if (!aestheticGrid || aestheticItems.length === 0) {
+                    console.log('Aesthetic grid or items not found');
+                    return;
+                }
+
+                let currentPhotoIndex = 0;
+                let startX = 0;
+                let isDragging = false;
+
+                function showPhoto(index) {
+                    aestheticItems.forEach((item, i) => {
+                        item.classList.remove('active', 'prev');
+                        if (i === index) {
+                            item.classList.add('active');
+                        } else if (i < index) {
+                            item.classList.add('prev');
+                        }
+                    });
+                }
+
+                aestheticGrid.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                    isDragging = true;
+                });
+
+                aestheticGrid.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                });
+
+                aestheticGrid.addEventListener('touchend', (e) => {
+                    if (!isDragging) return;
+                    isDragging = false;
+
+                    const endX = e.changedTouches[0].clientX;
+                    const diff = startX - endX;
+
+                    if (Math.abs(diff) > 50) { // Minimum swipe distance
+                        if (diff > 0 && currentPhotoIndex < aestheticItems.length - 1) {
+                            // Swipe left - next photo
+                            currentPhotoIndex++;
+                        } else if (diff < 0 && currentPhotoIndex > 0) {
+                            // Swipe right - previous photo
+                            currentPhotoIndex--;
+                        }
+                        showPhoto(currentPhotoIndex);
+                    }
+                });
+
+                // Show first photo immediately
+                setTimeout(() => showPhoto(0), 100);
+            }
         });
     </script>
 
