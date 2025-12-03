@@ -69,8 +69,6 @@
             color: var(--text-color);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-            padding-bottom: 140px;
-            /* Space for fixed footer */
         }
 
         img {
@@ -607,7 +605,7 @@
 
         /* Footer */
         footer {
-            position: fixed;
+            position: relative;
             bottom: 0;
             left: 0;
             width: 100%;
@@ -1801,15 +1799,19 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 60px;">
                 <div>
                     <h3 class="uppercase" style="margin-bottom: 20px; color: var(--accent-color);">Timeline</h3>
-                    <p style="font-size: 1.2rem; margin-bottom: 10px;"><strong>Estimated Launch:</strong> Spring 2025
+                    <p style="font-size: 1.2rem; margin-bottom: 10px;"><strong>Estimated Launch:</strong> Spring 2026
                     </p>
                     <p style="color: var(--text-light);">We are currently in the final stages of production testing.</p>
                 </div>
                 <div>
                     <h3 class="uppercase" style="margin-bottom: 20px; color: var(--accent-color);">Early Bird Offer</h3>
                     <p style="font-size: 1.2rem; margin-bottom: 10px;"><strong>50% Off Retail Price</strong></p>
-                    <p style="color: var(--text-light);">Reserve your spot now for free. You'll receive a secret link to
+                    <p style="color: var(--text-light); margin-bottom: 20px;">Reserve your spot now for free. You'll
+                        receive a secret link to
                         purchase when we launch.</p>
+                    <button class="btn-primary"
+                        onclick="document.getElementById('emailPopup').classList.add('show');document.getElementById('popupOverlay').classList.add('show');"
+                        style="margin-top: 10px;">Reserve</button>
                 </div>
             </div>
 
@@ -1819,8 +1821,8 @@
                 <div class="faq-item" style="border-bottom: 1px solid var(--line-color); padding: 20px 0;">
                     <h4 style="font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 10px;">Will it fit my
                         door?</h4>
-                    <p style="color: var(--text-light);">Doorothy is designed to work with most standard deadbolts and
-                        door handles. No permanent modification required.</p>
+                    <p style="color: var(--text-light);">Doorothy is designed to work with most standard swing
+                        doors at home. No permanent modification required.</p>
                 </div>
                 <div class="faq-item" style="border-bottom: 1px solid var(--line-color); padding: 20px 0;">
                     <h4 style="font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 10px;">How long does
@@ -1829,16 +1831,18 @@
                         It's easily rechargeable via USB-C.</p>
                 </div>
                 <div class="faq-item" style="border-bottom: 1px solid var(--line-color); padding: 20px 0;">
-                    <h4 style="font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 10px;">What about
-                        warranty?</h4>
-                    <p style="color: var(--text-light);">Every Doorothy comes with a 1-year limited warranty covering
-                        manufacturing defects.</p>
+                    <h4 style="font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 10px;">Can I still open
+                        or close the door
+                        manually?</h4>
+                    <p style="color: var(--text-light);">​Yes. The handle is always manually operable.
+                        You can turn it just like a normal door handle at any time—before, during, or after automatic
+                        opening. </p>
                 </div>
             </div>
 
             <div style="text-align: center; margin-top: 60px;">
-                <p style="color: var(--text-light);">Questions? Contact us at <a href="mailto:hello@doorothy.com"
-                        style="color: var(--text-color); text-decoration: underline;">hello@doorothy.com</a></p>
+                <p style="color: var(--text-light);">Questions? Contact us at <a href="mailto:yanwithmingze@gmail.com"
+                        style="color: var(--text-color); text-decoration: underline;">yanwithmingze@gmail.com</a></p>
             </div>
         </div>
     </section>
