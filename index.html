@@ -1335,15 +1335,15 @@
     </section>
 
     <!-- How to Install Section -->
-    <section class="section">
-        <div class="section-header">
-            <h2 class="section-title">How to<br>Install</h2>
-            <p class="section-desc">Installation is intuitive and tool-free. Simply peel and stick - no drilling
-                required.</p>
-            <img src="images/finger2.png" class="finger-bg" alt="Finger touching device">
-        </div>
-        <div class="steps-container" style="display: flex; justify-content: center; align-items: center;">
-            <div style="width: 100%; max-width: 800px;">
+    <section id="install-section"
+        style="padding: 80px 60px; border-bottom: 1px solid var(--line-color); position: relative; z-index: 1; background: var(--bg-color);">
+        <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+            <h2 class="section-title" style="margin-bottom: 20px;">How to Install</h2>
+            <p class="section-desc"
+                style="margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto;">Installation is
+                intuitive and tool-free. Simply peel and stick - no drilling required.</p>
+
+            <div style="max-width: 800px; margin: 0 auto;">
                 <div class="step-visual" style="margin-bottom: 20px;">
                     <div class="video-loader"></div>
                     <video autoplay loop muted playsinline>
@@ -1427,8 +1427,8 @@
     <script>
         // Hide loader for installation video
         document.addEventListener('DOMContentLoaded', () => {
-            const installVideo = document.querySelector('.steps-container .step-visual video');
-            const installLoader = document.querySelector('.steps-container .step-visual .video-loader');
+            const installVideo = document.querySelector('#install-section .step-visual video');
+            const installLoader = document.querySelector('#install-section .step-visual .video-loader');
 
             if (installVideo && installLoader) {
                 const hideInstallLoader = () => {
@@ -1437,8 +1437,17 @@
 
                 installVideo.addEventListener('playing', hideInstallLoader, { once: true });
                 installVideo.addEventListener('canplaythrough', hideInstallLoader, { once: true });
+                installVideo.addEventListener('loadeddata', hideInstallLoader, { once: true });
+
+                // Fallback: hide after a short delay if video is already playing
+                setTimeout(() => {
+                    if (!installVideo.paused) {
+                        hideInstallLoader();
+                    }
+                }, 500);
             }
         });
+
 
         // Video Carousel Auto-play
         document.addEventListener('DOMContentLoaded', () => {
