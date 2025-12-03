@@ -1371,10 +1371,10 @@
                 <!-- Main Video Display -->
                 <div class="video-carousel" style="position: relative; margin-bottom: 40px;">
                     <div class="step-item active" data-index="0"
-                        style="position: relative; opacity: 1; transform: scale(1);">
+                        style="position: relative; opacity: 1; transform: scale(1); background: transparent; border: none; padding: 0;">
                         <div class="step-visual" style="margin-bottom: 20px;">
                             <div class="video-loader"></div>
-                            <video autoplay loop muted playsinline>
+                            <video autoplay muted playsinline>
                                 <source src="videos/video3.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -1385,10 +1385,10 @@
                         </div>
                     </div>
                     <div class="step-item" data-index="1"
-                        style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: scale(0.9);">
+                        style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: scale(0.9); background: transparent; border: none; padding: 0;">
                         <div class="step-visual" style="margin-bottom: 20px;">
                             <div class="video-loader"></div>
-                            <video autoplay loop muted playsinline>
+                            <video autoplay muted playsinline>
                                 <source src="videos/video2.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -1399,10 +1399,10 @@
                         </div>
                     </div>
                     <div class="step-item" data-index="2"
-                        style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: scale(0.9);">
+                        style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: scale(0.9); background: transparent; border: none; padding: 0;">
                         <div class="step-visual" style="margin-bottom: 20px;">
                             <div class="video-loader"></div>
-                            <video autoplay loop muted playsinline>
+                            <video autoplay muted playsinline>
                                 <source src="videos/video4.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -1523,14 +1523,12 @@
                     currentVideo.play().catch(e => console.log('Autoplay prevented:', e));
 
                     // Set up auto-advance when video ends
-                    if (autoPlayEnabled) {
-                        currentVideo.onended = () => {
-                            autoPlayTimeout = setTimeout(() => {
-                                currentIndex = (currentIndex + 1) % videoItems.length;
-                                switchToVideo(currentIndex);
-                            }, 500); // Small delay before next video
-                        };
-                    }
+                    currentVideo.onended = () => {
+                        autoPlayTimeout = setTimeout(() => {
+                            currentIndex = (currentIndex + 1) % videoItems.length;
+                            switchToVideo(currentIndex);
+                        }, 500); // Small delay before next video
+                    };
                 }
 
                 currentIndex = index;
@@ -1539,7 +1537,7 @@
             // Manual navigation
             navBtns.forEach((btn, index) => {
                 btn.addEventListener('click', () => {
-                    autoPlayEnabled = false; // Disable auto-play when user manually selects
+                    // autoPlayEnabled = false; // Keep auto-play enabled even when user manually selects
                     clearTimeout(autoPlayTimeout);
                     switchToVideo(index);
                 });
