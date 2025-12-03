@@ -194,6 +194,25 @@
             color: var(--bg-color);
         }
 
+        .btn-primary {
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 30px;
+        }
+
+        .btn-primary:hover {
+            background: #fff;
+            color: var(--bg-color);
+        }
+
         /* Hero Section */
         .hero {
             min-height: calc(100vh - 120px);
@@ -1305,21 +1324,46 @@
     <section class="hero">
         <div class="hero-text">
             <div class="hero-label uppercase">Doorothy</div>
-            <h1 class="serif">The Art of<br>Access.</h1>
+            <h1 class="serif">The Invisible<br>Door Opener.</h1>
             <p>A precision-engineered device that transforms any door into an automated entry point. Minimalist design,
                 maximum utility.</p>
+
         </div>
         <div class="hero-visual">
             <img src="images/door_opener.png" alt="Doorothy Device">
         </div>
     </section>
 
+    <!-- How to Install Section -->
     <section class="section">
         <div class="section-header">
-            <h2 class="section-title">Seamless<br>Integration</h2>
-            <p class="section-desc">Designed to fit your life without disrupting your space. Installation is intuitive
-                and tool-free.</p>
-            <img src="images/finger2.png" class="finger-bg" alt="">
+            <h2 class="section-title">How to<br>Install</h2>
+            <p class="section-desc">Installation is intuitive and tool-free. Simply peel and stick - no drilling
+                required.</p>
+            <img src="images/finger2.png" class="finger-bg" alt="Finger touching device">
+        </div>
+        <div class="steps-container" style="display: flex; justify-content: center; align-items: center;">
+            <div style="width: 100%; max-width: 800px;">
+                <div class="step-visual" style="margin-bottom: 20px;">
+                    <div class="video-loader"></div>
+                    <video autoplay loop muted playsinline>
+                        <source src="videos/backup/video1.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="step-info" style="text-align: center;">
+                    <h3 class="uppercase">Installation</h3>
+                    <p>Peel and stick application. No drilling required.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">How It<br>Works</h2>
+            <p class="section-desc">Designed to fit your life without disrupting your space. Simple, intuitive
+                operation.</p>
         </div>
         <div class="steps-container" id="stepsContainer">
             <!-- Main Video Display -->
@@ -1327,48 +1371,36 @@
                 <div class="step-item active" data-index="0">
                     <div class="step-visual">
                         <div class="video-loader"></div>
-                        <video muted playsinline>
-                            <source src="videos/backup/video1.mp4" type="video/mp4">
+                        <video autoplay loop muted playsinline>
+                            <source src="videos/video3.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div class="step-info">
-                        <h3 class="uppercase">Installation</h3>
-                        <p>Peel and stick application. No drilling required.</p>
+                        <h3 class="uppercase">1. Touch</h3>
+                        <p>A light push is all it takes to open/close your door.</p>
                     </div>
                 </div>
                 <div class="step-item" data-index="1">
                     <div class="step-visual">
                         <div class="video-loader"></div>
-                        <video muted playsinline>
-                            <source src="videos/video3.mp4" type="video/mp4">
+                        <video autoplay loop muted playsinline>
+                            <source src="videos/video2.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div class="step-info">
-                        <h3 class="uppercase">Touch</h3>
-                        <p>A light push is all it takes to open/close your door.</p>
+                        <h3 class="uppercase">2. Control</h3>
+                        <p>Wireless button for remote closure.</p>
                     </div>
                 </div>
                 <div class="step-item" data-index="2">
                     <div class="step-visual">
                         <div class="video-loader"></div>
-                        <video muted playsinline>
-                            <source src="videos/video2.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="step-info">
-                        <h3 class="uppercase">Control</h3>
-                        <p>Wireless button for remote closure.</p>
-                    </div>
-                </div>
-                <div class="step-item" data-index="3">
-                    <div class="step-visual">
-                        <div class="video-loader"></div>
-                        <video muted playsinline>
+                        <video autoplay loop muted playsinline>
                             <source src="videos/video4.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div class="step-info">
-                        <h3 class="uppercase">Safety</h3>
+                        <h3 class="uppercase">3. Safety</h3>
                         <p>Built to stop safely when it meets resistance.</p>
                     </div>
                 </div>
@@ -1378,18 +1410,14 @@
             <div class="video-nav">
                 <button class="nav-btn active" data-index="0">
                     <span class="nav-number">01</span>
-                    <span class="nav-label">Installation</span>
+                    <span class="nav-label">Touch</span>
                 </button>
                 <button class="nav-btn" data-index="1">
                     <span class="nav-number">02</span>
-                    <span class="nav-label">Touch</span>
+                    <span class="nav-label">Control</span>
                 </button>
                 <button class="nav-btn" data-index="2">
                     <span class="nav-number">03</span>
-                    <span class="nav-label">Control</span>
-                </button>
-                <button class="nav-btn" data-index="3">
-                    <span class="nav-number">04</span>
                     <span class="nav-label">Safety</span>
                 </button>
             </div>
@@ -1397,6 +1425,21 @@
     </section>
 
     <script>
+        // Hide loader for installation video
+        document.addEventListener('DOMContentLoaded', () => {
+            const installVideo = document.querySelector('.steps-container .step-visual video');
+            const installLoader = document.querySelector('.steps-container .step-visual .video-loader');
+
+            if (installVideo && installLoader) {
+                const hideInstallLoader = () => {
+                    installLoader.classList.add('hidden');
+                };
+
+                installVideo.addEventListener('playing', hideInstallLoader, { once: true });
+                installVideo.addEventListener('canplaythrough', hideInstallLoader, { once: true });
+            }
+        });
+
         // Video Carousel Auto-play
         document.addEventListener('DOMContentLoaded', () => {
             const videoItems = document.querySelectorAll('.step-item');
@@ -1637,7 +1680,7 @@
             style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line-color);">
             <div class="aesthetic-item"
                 style="background: var(--bg-color); padding: 20px; border: none; display: flex; flex-direction: column; justify-content: space-between;">
-                <img src="images/corner_door_3.png" alt="Whole Door Context"
+                <img loading="lazy" src="images/corner_door_3.png" alt="Whole Door Context"
                     style="width: 100%; height: 100%; object-fit: cover; display: block; margin-bottom: 10px;">
                 <div class="aesthetic-caption"
                     style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px;">
@@ -1645,7 +1688,7 @@
             </div>
             <div class="aesthetic-item"
                 style="background: var(--bg-color); padding: 20px; border: none; display: flex; flex-direction: column; justify-content: space-between;">
-                <img src="images/corner_door_1.png" alt="Corner Detail 1"
+                <img loading="lazy" src="images/corner_door_1.png" alt="Corner Detail 1"
                     style="width: 100%; height: 100%; object-fit: cover; display: block; margin-bottom: 10px;">
                 <div class="aesthetic-caption"
                     style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px;">
@@ -1653,7 +1696,7 @@
             </div>
             <div class="aesthetic-item"
                 style="background: var(--bg-color); padding: 20px; border: none; display: flex; flex-direction: column; justify-content: space-between;">
-                <img src="images/corner_door_2.png" alt="Corner Detail 2"
+                <img loading="lazy" src="images/corner_door_2.png" alt="Corner Detail 2"
                     style="width: 100%; height: 100%; object-fit: cover; display: block; margin-bottom: 10px;">
                 <div class="aesthetic-caption"
                     style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px;">
@@ -1661,7 +1704,7 @@
             </div>
             <div class="aesthetic-item"
                 style="background: var(--bg-color); padding: 20px; border: none; display: flex; flex-direction: column; justify-content: space-between;">
-                <img src="images/corner_door_4.png" alt="Corner Detail 4"
+                <img loading="lazy" src="images/corner_door_4.png" alt="Corner Detail 4"
                     style="width: 100%; height: 100%; object-fit: cover; display: block; margin-bottom: 10px;">
                 <div class="aesthetic-caption"
                     style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px;">
@@ -1712,7 +1755,59 @@
             </table>
         </div>
         <div style="display: flex; align-items: center; justify-content: center;">
-            <img src="images/complicated_exploded_view.png" alt="Device Profile" style="max-width: 70%; height: auto;">
+            <img loading="lazy" src="images/complicated_exploded_view.png" alt="Device Profile"
+                style="max-width: 70%; height: auto;">
+        </div>
+    </section>
+
+    <!-- Section 5: Launch Details -->
+    <section class="section reveal" id="launch-details"
+        style="display: block; padding: 80px 60px; border-bottom: 1px solid var(--line-color);">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 60px;">Launch Details</h2>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 60px;">
+                <div>
+                    <h3 class="uppercase" style="margin-bottom: 20px; color: var(--accent-color);">Timeline</h3>
+                    <p style="font-size: 1.2rem; margin-bottom: 10px;"><strong>Estimated Launch:</strong> Spring 2025
+                    </p>
+                    <p style="color: var(--text-light);">We are currently in the final stages of production testing.</p>
+                </div>
+                <div>
+                    <h3 class="uppercase" style="margin-bottom: 20px; color: var(--accent-color);">Early Bird Offer</h3>
+                    <p style="font-size: 1.2rem; margin-bottom: 10px;"><strong>50% Off Retail Price</strong></p>
+                    <p style="color: var(--text-light);">Reserve your spot now for free. You'll receive a secret link to
+                        purchase when we launch.</p>
+                </div>
+            </div>
+
+            <div class="faq-container">
+                <h3 class="uppercase" style="margin-bottom: 30px; text-align: center;">Frequently Asked Questions</h3>
+
+                <div class="faq-item" style="border-bottom: 1px solid var(--line-color); padding: 20px 0;">
+                    <h4 style="font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 10px;">Will it fit my
+                        door?</h4>
+                    <p style="color: var(--text-light);">Doorothy is designed to work with most standard deadbolts and
+                        door handles. No permanent modification required.</p>
+                </div>
+                <div class="faq-item" style="border-bottom: 1px solid var(--line-color); padding: 20px 0;">
+                    <h4 style="font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 10px;">How long does
+                        the battery last?</h4>
+                    <p style="color: var(--text-light);">The battery lasts approximately 18 months with typical usage.
+                        It's easily rechargeable via USB-C.</p>
+                </div>
+                <div class="faq-item" style="border-bottom: 1px solid var(--line-color); padding: 20px 0;">
+                    <h4 style="font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 10px;">What about
+                        warranty?</h4>
+                    <p style="color: var(--text-light);">Every Doorothy comes with a 1-year limited warranty covering
+                        manufacturing defects.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 60px;">
+                <p style="color: var(--text-light);">Questions? Contact us at <a href="mailto:hello@doorothy.com"
+                        style="color: var(--text-color); text-decoration: underline;">hello@doorothy.com</a></p>
+            </div>
         </div>
     </section>
 
