@@ -1357,68 +1357,78 @@
         </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section class="section">
-        <div class="section-header">
-            <h2 class="section-title">How It<br>Works</h2>
-            <p class="section-desc">Designed to fit your life without disrupting your space. Simple, intuitive
-                operation.</p>
-        </div>
-        <div class="steps-container" id="stepsContainer">
-            <!-- Main Video Display -->
-            <div class="video-carousel">
-                <div class="step-item active" data-index="0">
-                    <div class="step-visual">
-                        <div class="video-loader"></div>
-                        <video autoplay loop muted playsinline>
-                            <source src="videos/video3.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="step-info">
-                        <h3 class="uppercase">1. Touch</h3>
-                        <p>A light push is all it takes to open/close your door.</p>
-                    </div>
-                </div>
-                <div class="step-item" data-index="1">
-                    <div class="step-visual">
-                        <div class="video-loader"></div>
-                        <video autoplay loop muted playsinline>
-                            <source src="videos/video2.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="step-info">
-                        <h3 class="uppercase">2. Control</h3>
-                        <p>Wireless button for remote closure.</p>
-                    </div>
-                </div>
-                <div class="step-item" data-index="2">
-                    <div class="step-visual">
-                        <div class="video-loader"></div>
-                        <video autoplay loop muted playsinline>
-                            <source src="videos/video4.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="step-info">
-                        <h3 class="uppercase">3. Safety</h3>
-                        <p>Built to stop safely when it meets resistance.</p>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Navigation Buttons -->
-            <div class="video-nav">
-                <button class="nav-btn active" data-index="0">
-                    <span class="nav-number">01</span>
-                    <span class="nav-label">Touch</span>
-                </button>
-                <button class="nav-btn" data-index="1">
-                    <span class="nav-number">02</span>
-                    <span class="nav-label">Control</span>
-                </button>
-                <button class="nav-btn" data-index="2">
-                    <span class="nav-number">03</span>
-                    <span class="nav-label">Safety</span>
-                </button>
+    <!-- How It Works Section -->
+    <section id="works-section"
+        style="padding: 80px 60px; border-bottom: 1px solid var(--line-color); position: relative; z-index: 1; background: var(--bg-color);">
+        <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+            <h2 class="section-title" style="margin-bottom: 20px;">How It Works</h2>
+            <p
+                style="margin-bottom: 60px; text-align: center; font-size: 1.2rem; color: var(--text-light); max-width: 100%; margin-left: auto; margin-right: auto;">
+                Designed to fit your life without disrupting your space. Simple, intuitive operation.</p>
+
+            <div style="max-width: 800px; margin: 0 auto;">
+                <!-- Main Video Display -->
+                <div class="video-carousel" style="position: relative; margin-bottom: 40px;">
+                    <div class="step-item active" data-index="0"
+                        style="position: relative; opacity: 1; transform: scale(1);">
+                        <div class="step-visual" style="margin-bottom: 20px;">
+                            <div class="video-loader"></div>
+                            <video autoplay loop muted playsinline>
+                                <source src="videos/video3.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="step-info" style="text-align: center;">
+                            <h3 class="uppercase" style="margin-bottom: 10px;">Touch</h3>
+                            <p style="font-size: 1.2rem; color: var(--text-light);">A light push is all it takes to
+                                open/close your door.</p>
+                        </div>
+                    </div>
+                    <div class="step-item" data-index="1"
+                        style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: scale(0.9);">
+                        <div class="step-visual" style="margin-bottom: 20px;">
+                            <div class="video-loader"></div>
+                            <video autoplay loop muted playsinline>
+                                <source src="videos/video2.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="step-info" style="text-align: center;">
+                            <h3 class="uppercase" style="margin-bottom: 10px;">Control</h3>
+                            <p style="font-size: 1.2rem; color: var(--text-light);">Wireless button for remote closure.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step-item" data-index="2"
+                        style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: scale(0.9);">
+                        <div class="step-visual" style="margin-bottom: 20px;">
+                            <div class="video-loader"></div>
+                            <video autoplay loop muted playsinline>
+                                <source src="videos/video4.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="step-info" style="text-align: center;">
+                            <h3 class="uppercase" style="margin-bottom: 10px;">Safety</h3>
+                            <p style="font-size: 1.2rem; color: var(--text-light);">Built to stop safely when it meets
+                                resistance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="video-nav" style="display: flex; justify-content: center; gap: 20px; flex-direction: row;">
+                    <button class="nav-btn active" data-index="0" style="min-width: 150px;">
+                        <span class="nav-number">01</span>
+                        <span class="nav-label">Touch</span>
+                    </button>
+                    <button class="nav-btn" data-index="1" style="min-width: 150px;">
+                        <span class="nav-number">02</span>
+                        <span class="nav-label">Control</span>
+                    </button>
+                    <button class="nav-btn" data-index="2" style="min-width: 150px;">
+                        <span class="nav-number">03</span>
+                        <span class="nav-label">Safety</span>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -1450,19 +1460,35 @@
 
         // Video Carousel Auto-play
         document.addEventListener('DOMContentLoaded', () => {
-            const videoItems = document.querySelectorAll('.step-item');
-            const navBtns = document.querySelectorAll('.nav-btn');
+            const videoItems = document.querySelectorAll('#works-section .step-item');
+            const navBtns = document.querySelectorAll('#works-section .nav-btn');
             let currentIndex = 0;
             let autoPlayEnabled = true;
             let autoPlayTimeout;
 
+
             function switchToVideo(index) {
-                // Remove active class from all
-                videoItems.forEach(item => item.classList.remove('active'));
+                // Remove active class and hide all items
+                videoItems.forEach((item, i) => {
+                    item.classList.remove('active');
+                    if (i !== index) {
+                        item.style.position = 'absolute';
+                        item.style.top = '0';
+                        item.style.left = '0';
+                        item.style.width = '100%';
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.9)';
+                        item.style.pointerEvents = 'none';
+                    }
+                });
                 navBtns.forEach(btn => btn.classList.remove('active'));
 
-                // Add active class to current
+                // Show and activate current item
                 videoItems[index].classList.add('active');
+                videoItems[index].style.position = 'relative';
+                videoItems[index].style.opacity = '1';
+                videoItems[index].style.transform = 'scale(1)';
+                videoItems[index].style.pointerEvents = 'auto';
                 navBtns[index].classList.add('active');
 
                 // Stop all videos
