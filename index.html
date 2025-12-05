@@ -445,9 +445,9 @@
         /* Navigation Buttons */
         .video-nav {
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-width: 200px;
+            flex-direction: row;
+            justify-content: center;
+            gap: 20px;
         }
 
         .nav-btn {
@@ -823,10 +823,15 @@
                 border: none;
             }
 
+            #works-section {
+                padding: 40px 15px !important;
+                /* Reduce padding on mobile */
+            }
+
             .video-nav {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                /* 2x2 grid for buttons */
+                display: flex;
+                flex-direction: column;
+                /* Stack buttons vertically on mobile */
                 gap: 10px;
                 width: 100%;
                 overflow: visible;
@@ -1413,7 +1418,7 @@
                 </div>
 
                 <!-- Navigation Buttons -->
-                <div class="video-nav" style="display: flex; justify-content: center; gap: 20px; flex-direction: row;">
+                <div class="video-nav" style="display: flex; justify-content: center; gap: 20px;">
                     <button class="nav-btn active" data-index="0" style="min-width: 150px;">
                         <span class="nav-number">01</span>
                         <span class="nav-label">Touch</span>
